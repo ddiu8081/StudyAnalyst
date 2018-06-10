@@ -17,6 +17,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <LinearLayout
+        android:id="@+id/linearLayout_topBar"
+        android:layout_width="0dp"
+        android:layout_height="72dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_statusBar">
+
+        <ImageView
+            android:id="@+id/btn_left"
+            android:layout_width="24dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="24dp" />
+
+        <TextView
+            android:id="@+id/textView_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="计划"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/btn_right"
+            android:layout_width="24dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="24dp" />
+    </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView_todoList"
         android:layout_width="0dp"
@@ -39,10 +70,12 @@
 
         <ImageView
             android:id="@+id/btn_add"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_margin="25dp"
-            app:srcCompat="@drawable/setting" />
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginBottom="25dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="25dp"
+            app:srcCompat="@drawable/icon_add" />
 
         <Space
             android:layout_width="wrap_content"
@@ -51,43 +84,12 @@
 
         <ImageView
             android:id="@+id/btn_analyse"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_margin="25dp"
-            app:srcCompat="@drawable/analyse" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout_topBar"
-        android:layout_width="0dp"
-        android:layout_height="72dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_statusBar">
-
-        <ImageView
-            android:id="@+id/imageView_left"
-            android:layout_width="24dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="24dp"
-            app:srcCompat="@drawable/analyse" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="计划"
-            android:textSize="20sp" />
-
-        <ImageView
-            android:id="@+id/imageView_right"
-            android:layout_width="24dp"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="24dp"
-            app:srcCompat="@drawable/analyse" />
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginBottom="25dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginTop="25dp"
+            app:srcCompat="@drawable/icon_analyse" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

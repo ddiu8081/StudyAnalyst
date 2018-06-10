@@ -18,7 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AnalystActivity"></activity>
+        <activity android:name=".TimeLineActivity" />
+        <activity android:name=".AnalyseActivity"></activity>
     </application>
 
 </manifest>

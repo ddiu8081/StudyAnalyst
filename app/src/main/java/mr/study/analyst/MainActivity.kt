@@ -1,5 +1,6 @@
 package mr.study.analyst
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -30,6 +31,12 @@ class MainActivity : AppCompatActivity() {
 
         likeList.add(TodoItem("23456","政治","#E47C5D",60))
         likeList.add(TodoItem("234346","数学","#CCBF82",26))
+
+        btn_analyse.setOnClickListener {
+            val intent = Intent(act, AnalyseActivity::class.java)
+//            intent.putExtra("data","This is from MainActivity.")
+            startActivity(intent) //启动界面
+        }
 
     }
 }
