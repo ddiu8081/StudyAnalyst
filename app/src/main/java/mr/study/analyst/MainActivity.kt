@@ -8,6 +8,12 @@ import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.act
 import org.jetbrains.anko.toast
+import android.app.NotificationManager
+import android.os.Build
+import android.app.NotificationChannel
+import android.annotation.TargetApi
+import android.content.Context
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,6 +30,17 @@ class MainActivity : AppCompatActivity() {
         QMUIStatusBarHelper.setStatusBarLightMode(act) //设置状态栏黑色字体图标
         view_statusBar.layoutParams.height = QMUIStatusBarHelper.getStatusbarHeight(this)
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channelId = "timeRecorder"
+            val channelName = "计时器"
+            val importance = NotificationManager.IMPORTANCE_HIGH
+            val channel = NotificationChannel(channelId, channelName, importance)
+            channel.setShowBadge(true)
+            val notificationManager = getSystemService(
+                    Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+
         recyclerView_todoList.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
         recyclerView_todoList.adapter = ListAdapter(likeList) {
             toast(it.objectId)
@@ -38,5 +55,13 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent) //启动界面
         }
 
+    }
+
+    @TargetApi(Build.VERSION_CODES.O)
+    private fun createNotificationChannel(channelId: String, channelName: String, importance: Int) {
+        val channel = NotificationChannel(channelId, channelName, importance)
+        val notificationManager = getSystemService(
+                Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
     }
 }

@@ -3,6 +3,7 @@
     package="mr.study.analyst">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -19,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".TimeLineActivity" />
-        <activity android:name=".AnalyseActivity"></activity>
+        <activity android:name=".AnalyseActivity" />
     </application>
 
 </manifest>
