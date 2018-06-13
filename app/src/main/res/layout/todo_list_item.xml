@@ -2,11 +2,12 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/view_listItem"
     android:layout_width="match_parent"
     android:layout_height="96dp"
     android:layout_margin="8dp"
-    android:elevation="3dp"
-    android:background="#ffffff">
+    android:background="#ffffff"
+    android:elevation="3dp">
 
     <View
         android:id="@+id/view_todoColor"
@@ -19,7 +20,7 @@
 
     <View
         android:id="@+id/view_todoProgress"
-        android:layout_width="190dp"
+        android:layout_width="230dp"
         android:layout_height="0dp"
         android:background="#eeeeee"
         app:layout_constraintBottom_toBottomOf="parent"

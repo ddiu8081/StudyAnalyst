@@ -17,7 +17,7 @@ import android.content.Context
 
 class MainActivity : AppCompatActivity() {
 
-    data class TodoItem(val objectId: String, val name: String, val color: String, val plan: Int)
+    data class TodoItem(val objectId: String, val name: String, val color: String, val plan: Int, val time: Int = 0)
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -46,12 +46,18 @@ class MainActivity : AppCompatActivity() {
             toast(it.objectId)
         }
 
-        likeList.add(TodoItem("23456","政治","#E47C5D",60))
-        likeList.add(TodoItem("234346","数学","#CCBF82",26))
+        likeList.add(TodoItem("1","政治","#E47C5D",60,30))
+        likeList.add(TodoItem("2","数学","#CCBF82",26,40))
+        likeList.add(TodoItem("3","阅读","#E8A0A2",135,90))
+        likeList.add(TodoItem("4","英语","#E6CCA5",30))
+        likeList.add(TodoItem("5","未分配","#D1D0D7",60))
+        likeList.add(TodoItem("6","阅读","#CCBF82",90,50))
+        likeList.add(TodoItem("7","历史","#9A8194",100,77))
+        likeList.add(TodoItem("8","历史","#EBCC6E",120))
+        likeList.add(TodoItem("9","历史","#D3B9A3",60,44))
 
         btn_analyse.setOnClickListener {
             val intent = Intent(act, AnalyseActivity::class.java)
-//            intent.putExtra("data","This is from MainActivity.")
             startActivity(intent) //启动界面
         }
 

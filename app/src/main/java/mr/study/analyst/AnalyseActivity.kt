@@ -44,9 +44,13 @@ class AnalyseActivity : AppCompatActivity() {
 
         val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val builder = NotificationCompat.Builder(this,"timeRecorder")
+
         // Creates an explicit intent for an Activity in your app
         val resultIntent = Intent(this, MainActivity::class.java)
         val resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, 0)
+        val pauseIntent = Intent(this, TimeRecordActivity::class.java)
+        val pausePendingIntent = PendingIntent.getActivity(this, 0, pauseIntent, 0)
+
         val notification = builder
                 .setContentTitle("正在专注") //标题
                 .setContentText("英语 | 已专注 14 分钟") //描述文字
@@ -61,7 +65,7 @@ class AnalyseActivity : AppCompatActivity() {
                 .setUsesChronometer(true)
                 .setNumber(1)
                 .addAction(R.drawable.ic_stat_name, "暂停",
-                        resultPendingIntent)
+                        pausePendingIntent)
 
         manager.notify(1, notification.build())
 
