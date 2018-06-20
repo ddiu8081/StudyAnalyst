@@ -44,6 +44,8 @@ class MainActivity : AppCompatActivity() {
         recyclerView_todoList.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
         recyclerView_todoList.adapter = ListAdapter(likeList) {
             toast(it.objectId)
+            val intent = Intent(act, TimeRecordActivity::class.java)
+            startActivity(intent) //启动界面
         }
 
         likeList.add(TodoItem("1","政治","#E47C5D",60,30))
