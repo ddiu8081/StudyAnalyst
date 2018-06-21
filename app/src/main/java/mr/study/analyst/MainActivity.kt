@@ -43,8 +43,7 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView_todoList.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
         recyclerView_todoList.adapter = ListAdapter(likeList) {
-            toast(it.objectId)
-            val intent = Intent(act, TimeRecordActivity::class.java)
+            val intent = Intent(act, TodoInfoActivity::class.java)
             startActivity(intent) //启动界面
         }
 

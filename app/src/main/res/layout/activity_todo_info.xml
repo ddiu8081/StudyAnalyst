@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".TodoInfoActivity">
+
+    <View
+        android:id="@+id/view_statusBar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout_topBar"
+        android:layout_width="0dp"
+        android:layout_height="72dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_statusBar">
+
+        <ImageView
+            android:id="@+id/btn_left"
+            android:layout_width="24dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="24dp"
+            app:srcCompat="@drawable/icon_return" />
+
+        <TextView
+            android:id="@+id/textView_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="我的计划"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/btn_right"
+            android:layout_width="24dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="24dp"
+            app:srcCompat="@drawable/icon_edit" />
+    </LinearLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:background="#ffffff"
+        android:elevation="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_topBar"
+        app:layout_constraintVertical_bias="1.0">
+
+        <View
+            android:id="@+id/view_totoColor"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView_todoName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="96dp"
+            android:text="todoName"
+            android:textSize="36sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_totoColor" />
+
+        <TextView
+            android:id="@+id/textView_todoType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="#eeeeee"
+            android:paddingBottom="4dp"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            android:paddingTop="4dp"
+            android:text="todoMeta"
+            app:layout_constraintEnd_toEndOf="@+id/textView_todoName"
+            app:layout_constraintStart_toStartOf="@+id/textView_todoName"
+            app:layout_constraintTop_toBottomOf="@+id/textView_todoName" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="48dp"
+            android:layout_marginStart="48dp"
+            android:progress="36"
+            app:layout_constraintBottom_toTopOf="@+id/textView_todoPlan"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView_todoMeta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="todoMeta"
+            android:textSize="18sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView_todoPlan"
+            app:layout_constraintStart_toStartOf="@+id/progressBar" />
+
+        <TextView
+            android:id="@+id/textView_todoPlan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="72dp"
+            android:layout_marginEnd="4dp"
+            android:text="Plan"
+            android:textSize="36sp"
+            app:layout_constraintBottom_toTopOf="@+id/textView_toast"
+            app:layout_constraintEnd_toStartOf="@+id/textView_todoUnit" />
+
+        <TextView
+            android:id="@+id/textView_todoUnit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="分钟"
+            android:textSize="18sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView_todoPlan"
+            app:layout_constraintEnd_toEndOf="@+id/progressBar" />
+
+        <TextView
+            android:id="@+id/textView_toast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="72dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:text="翻转手机以继续"
+            android:textColor="#999999"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>

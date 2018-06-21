@@ -21,7 +21,10 @@
         </activity>
         <activity android:name=".TimeLineActivity" />
         <activity android:name=".AnalyseActivity" />
-        <activity android:name=".TimeRecordActivity"></activity>
+        <activity android:name=".TimeRecordActivity" />
+        <activity android:name=".TodoInfoActivity" />
+        <activity android:name=".TodoEditActivity" />
+        <activity android:name=".AchievementActivity"></activity>
     </application>
 
 </manifest>
