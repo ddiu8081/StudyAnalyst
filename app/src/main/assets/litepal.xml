@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <litepal>
-    <dbname value="TodoList" />
+    <dbname value="Analyst" />
 
     <version value="1" />
 
     <list>
         <mapping class="mr.study.analyst.TodoItem" />
+        <mapping class="mr.study.analyst.ActivityItem" />
     </list>
 </litepal>

@@ -12,6 +12,7 @@ import android.os.Build
 import android.app.NotificationChannel
 import android.annotation.TargetApi
 import android.content.Context
+import org.jetbrains.anko.toast
 import org.litepal.LitePal
 
 
@@ -50,6 +51,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent) //启动界面
         }
 
+//        LitePal.getDatabase()
     }
 
     override fun onResume() {
@@ -62,6 +64,9 @@ class MainActivity : AppCompatActivity() {
 //        TodoItem("政治","#E47C5D",60,40).save()
 //        TodoItem("数学","#CCBF82",26,66).save()
         todoList = LitePal.findAll(TodoItem::class.java)
+        if (todoList.isEmpty()) {
+            toast("还没有计划，点击下方+号创建一个吧")
+        }
 
         recyclerView_todoList.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
         recyclerView_todoList.adapter = TodoListAdapter(todoList) {

@@ -17,6 +17,7 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -76,7 +77,8 @@ public class TimeRecordActivity extends Activity {
     }
 
     int onStartButnPress=0;
-    int current;
+    int current = 0;
+    int newMin = 0;
     boolean startButnPressed = false;
     boolean firstBegin = true;
     boolean comfirm = false;
@@ -95,7 +97,6 @@ public class TimeRecordActivity extends Activity {
             oa.setInterpolator(new AccelerateDecelerateInterpolator());//accelerate
             oa.start();
             if(firstBegin){
-                current=currntTimeFromMainActivity*60;
                 firstBegin=false;
             }
 //            else if(!comfirm){
@@ -111,7 +112,8 @@ public class TimeRecordActivity extends Activity {
                 @Override
                 public void onChronometerTick(Chronometer chronometer) {
                     current++;
-                    chronometer.setText("已专注" + current / 60 + "分钟");
+                    newMin = current / 60 + currntTimeFromMainActivity;
+                    chronometer.setText("已专注" + newMin + "分钟");
                 }
             });
             chronometer.start();
@@ -168,8 +170,20 @@ public class TimeRecordActivity extends Activity {
         super.onStop();
 
         TodoItem thisItem = LitePal.find(TodoItem.class,id);
-        thisItem.setActuTime(current/60);
+        thisItem.setActuTime(newMin);
         thisItem.save();
+
+        if (current >= 60) {
+            ActivityItem activityItem = new ActivityItem();
+            activityItem.setName(thisItem.getName());
+            activityItem.setDuringTime(current/60);
+            activityItem.save();
+
+            Toast.makeText(getApplicationContext(), "已保存记录", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "专注未满一分钟，暂不记录", Toast.LENGTH_SHORT).show();
+        }
     }
 
 //    public static String FormatHMS(int time){
@@ -205,5 +219,17 @@ public class TimeRecordActivity extends Activity {
         else {
             vibrator.vibrate(200);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 }

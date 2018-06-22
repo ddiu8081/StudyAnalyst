@@ -11,6 +11,12 @@ import org.jetbrains.anko.act
 import android.app.NotificationManager
 import android.content.Context
 import android.app.PendingIntent
+import android.util.Log
+import org.jetbrains.anko.toast
+import org.litepal.LitePal
+import java.text.DecimalFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class AnalyseActivity : AppCompatActivity() {
@@ -34,6 +40,35 @@ class AnalyseActivity : AppCompatActivity() {
 
         MPChartUtils.initBarChart(this, chart_timeline)
 
+        initData()
+
+    }
+
+    private fun initData() {
+        // 今日专注
+        var acts = LitePal.findAll(ActivityItem::class.java)
+        val daysSet = HashSet<String>()
+        var allFocusMin = 0
+        var todayFocusMin = 0
+        for (act in acts) {
+            allFocusMin += act.duringTime
+            daysSet.add(act.date)
+            if (act.date == DateUtils.getDateToday()) {
+                todayFocusMin += act.duringTime
+            }
+        }
+
+        textView_days.text = daysSet.size.toString() //记录天数
+        if (allFocusMin <= 60) {
+            textView_allFocus.text = allFocusMin.toString() + "分" //总专注
+        }
+        else {
+            val df = DecimalFormat("#.#")
+            val allFocusHour = df.format(allFocusMin.toFloat() / 60)
+            textView_allFocus.text = allFocusHour.toString() + "时" //总专注
+        }
+
+        textView_todayFocus.text = todayFocusMin.toString() + "分" //今日专注
     }
 
 }

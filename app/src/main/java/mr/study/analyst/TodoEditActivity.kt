@@ -37,6 +37,7 @@ class TodoEditActivity : AppCompatActivity() {
             val intent = Intent(act, MainActivity::class.java)
             intent.putExtra("id",it.id)
             startActivity(intent) //启动界面
+            toast("已删除")
         }
 
         initList()
