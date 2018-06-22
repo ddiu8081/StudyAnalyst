@@ -13,15 +13,18 @@ import android.os.Build
 import android.app.NotificationChannel
 import android.annotation.TargetApi
 import android.content.Context
+import org.litepal.LitePal
+import org.litepal.crud.DataSupport
+import org.litepal.exceptions.DataSupportException
+import org.litepal.tablemanager.Connector
 
 
 class MainActivity : AppCompatActivity() {
 
-    data class TodoItem(val objectId: String, val name: String, val color: String, val plan: Int, val time: Int = 0)
+//    data class TodoItem(val objectId: String, val name: String, val color: String, val plan: Int, val time: Int = 0)
+    var todoList = emptyList<TodoItem>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        val likeList:MutableList<TodoItem> = ArrayList ()
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -41,26 +44,58 @@ class MainActivity : AppCompatActivity() {
             notificationManager.createNotificationChannel(channel)
         }
 
-        recyclerView_todoList.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
-        recyclerView_todoList.adapter = ListAdapter(likeList) {
-            val intent = Intent(act, TodoInfoActivity::class.java)
-            startActivity(intent) //启动界面
-        }
-
-        likeList.add(TodoItem("1","政治","#E47C5D",60,30))
-        likeList.add(TodoItem("2","数学","#CCBF82",26,40))
-        likeList.add(TodoItem("3","阅读","#E8A0A2",135,90))
-        likeList.add(TodoItem("4","英语","#E6CCA5",30))
-        likeList.add(TodoItem("5","未分配","#D1D0D7",60))
-        likeList.add(TodoItem("6","阅读","#CCBF82",90,50))
-        likeList.add(TodoItem("7","历史","#9A8194",100,77))
-        likeList.add(TodoItem("8","历史","#EBCC6E",120))
-        likeList.add(TodoItem("9","历史","#D3B9A3",60,44))
-
         btn_analyse.setOnClickListener {
             val intent = Intent(act, AnalyseActivity::class.java)
             startActivity(intent) //启动界面
         }
+
+        btn_add.setOnClickListener {
+            val item = TodoItem()
+            item.name = "政治"
+            item.color = "#E47C5D"
+            item.planTime = 60
+            item.actuTime = 40
+            item.save()
+            todoList = LitePal.findAll(TodoItem::class.java)
+        }
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        initList()
+    }
+
+    fun initList() {
+//        TodoItem("政治","#E47C5D",60,40).save()
+//        TodoItem("数学","#CCBF82",26,66).save()
+        todoList = LitePal.findAll(TodoItem::class.java)
+
+        recyclerView_todoList.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
+        recyclerView_todoList.adapter = ListAdapter(todoList) {
+            val intent = Intent(act, TodoInfoActivity::class.java)
+            intent.putExtra("id",it.id)
+
+//            val bundle = Bundle()
+//            bundle.putInt("id", it.id)
+//            bundle.putString("name", it.name)
+//            bundle.putString("color", it.color)
+//            bundle.putInt("planTime", it.planTime)
+//            bundle.putInt("actuTime",it.actuTime)
+//            intent.putExtras(bundle)
+
+            startActivity(intent) //启动界面
+        }
+//        likeList.add(TodoItem(3,"阅读","#E8A0A2",135,90))
+//        likeList.add(TodoItem(4,"英语","#E6CCA5",30))
+//        likeList.add(TodoItem(5,"未分配","#D1D0D7",60))
+//        likeList.add(TodoItem(6,"阅读","#CCBF82",90,50))
+//        likeList.add(TodoItem(7,"历史","#9A8194",100,77))
+//        likeList.add(TodoItem(8,"历史","#EBCC6E",120))
+//        likeList.add(TodoItem(9,"历史","#D3B9A3",60,44))
+
+
 
     }
 
