@@ -24,10 +24,6 @@ import org.litepal.LitePal
 
 class TodoInfoActivity : AppCompatActivity() {
 
-    private var planTimeFromMainActivity = 0
-    private var timeToMainActivity = 0
-    private var titleFromMainActivity = ""
-    private var currntTimeFromMainActivity: Int = 0
     private var id : Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,10 +36,6 @@ class TodoInfoActivity : AppCompatActivity() {
 
         id = intent.getLongExtra("id",0)
 
-        titleFromMainActivity = "English"
-        planTimeFromMainActivity = 48
-        currntTimeFromMainActivity = 32
-
         btn_left.setOnClickListener {
             finish()
         }
@@ -55,10 +47,14 @@ class TodoInfoActivity : AppCompatActivity() {
         }
 
 //        textView_toast.setOnClickListener {
-//            val intent1 = Intent(this, TimeRecordActivity::class.java)
-//            val message = titleFromMainActivity+"#"+planTimeFromMainActivity+"_"+currntTimeFromMainActivity
-//            intent1.putExtra("MESSAGE",message)
-//            startActivityForResult(intent1,0)
+////            val intent1 = Intent(this, TimeRecordActivity::class.java)
+////            val message = titleFromMainActivity+"#"+planTimeFromMainActivity+"_"+currntTimeFromMainActivity
+////            intent1.putExtra("MESSAGE",message)
+////            startActivityForResult(intent1,0)
+//
+//            val intent = Intent(act, TimeRecordActivity::class.java)
+//            intent.putExtra("id",id)
+//            startActivity(intent) //启动界面
 //        }
     }
 
@@ -93,8 +89,8 @@ class TodoInfoActivity : AppCompatActivity() {
 //        }
 //    }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
 
         val todoItem = LitePal.find(TodoItem::class.java,id)
 

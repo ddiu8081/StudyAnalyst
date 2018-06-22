@@ -110,7 +110,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:ems="10"
-            android:inputType="textPersonName"
+            android:inputType="number"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@+id/textView_title1"
             app:layout_constraintTop_toBottomOf="@+id/textView_title2" />
@@ -146,6 +146,38 @@
             app:qmui_backgroundColor="#eeffc408"
             app:qmui_borderColor="#ffc408"
             app:qmui_isRadiusAdjustBounds="true" />
+
+        <TextView
+            android:id="@+id/textView_title4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="强调色"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/editText_planTime"
+            app:layout_constraintTop_toBottomOf="@+id/editText_planTime" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView_colorList"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView_title4"
+            app:layout_constraintTop_toBottomOf="@+id/textView_title4" />
+
+        <EditText
+            android:id="@+id/editText_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="#A7BFA0"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/recyclerView_colorList"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerView_colorList" />
 
 
     </android.support.constraint.ConstraintLayout>

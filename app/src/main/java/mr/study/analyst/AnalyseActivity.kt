@@ -27,17 +27,13 @@ class AnalyseActivity : AppCompatActivity() {
             finish()
         }
 
-        view_timeline.setOnClickListener {
-            val intent = Intent(act, TimeLineActivity::class.java)
-            startActivity(intent) //启动界面
-        }
+//        view_timeline.setOnClickListener {
+//            val intent = Intent(act, TimeLineActivity::class.java)
+//            startActivity(intent) //启动界面
+//        }
 
         MPChartUtils.initBarChart(this, chart_timeline)
 
-
-
     }
-
-
 
 }

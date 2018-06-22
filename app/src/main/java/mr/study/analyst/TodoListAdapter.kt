@@ -1,6 +1,5 @@
 package mr.study.analyst
 
-import android.content.Context
 import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -10,7 +9,7 @@ import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import kotlinx.android.synthetic.main.todo_list_item.view.*
 
 
-class ListAdapter(val items : List<TodoItem>, private val itemClickListener: (TodoItem)->Unit) : RecyclerView.Adapter<ListAdapter.ViewHolder>() {
+class TodoListAdapter(val items : List<TodoItem>, private val itemClickListener: (TodoItem)->Unit) : RecyclerView.Adapter<TodoListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.todo_list_item, parent, false)

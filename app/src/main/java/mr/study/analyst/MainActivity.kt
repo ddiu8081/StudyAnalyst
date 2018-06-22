@@ -7,16 +7,12 @@ import android.support.v7.widget.LinearLayoutManager
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.act
-import org.jetbrains.anko.toast
 import android.app.NotificationManager
 import android.os.Build
 import android.app.NotificationChannel
 import android.annotation.TargetApi
 import android.content.Context
 import org.litepal.LitePal
-import org.litepal.crud.DataSupport
-import org.litepal.exceptions.DataSupportException
-import org.litepal.tablemanager.Connector
 
 
 class MainActivity : AppCompatActivity() {
@@ -56,8 +52,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
 
         initList()
     }
@@ -68,7 +64,7 @@ class MainActivity : AppCompatActivity() {
         todoList = LitePal.findAll(TodoItem::class.java)
 
         recyclerView_todoList.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
-        recyclerView_todoList.adapter = ListAdapter(todoList) {
+        recyclerView_todoList.adapter = TodoListAdapter(todoList) {
             val intent = Intent(act, TodoInfoActivity::class.java)
             intent.putExtra("id",it.id)
 

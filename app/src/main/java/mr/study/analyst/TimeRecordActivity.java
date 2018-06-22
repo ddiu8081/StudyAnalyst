@@ -4,7 +4,12 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -48,20 +53,14 @@ public class TimeRecordActivity extends Activity {
         id = intent.getLongExtra("id",0);
 
         TodoItem thisItem = LitePal.find(TodoItem.class,id);
-        thisItem.setActuTime(current);
-        thisItem.save();
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_time_record);
         start_butn=(Button)findViewById(R.id.start_button);
-//        setting_butn=(ImageButton)findViewById(R.id.setting_Button);
-//        chart_butn=(ImageButton)findViewById(R.id.chart_Button);
+
         chronometer = (Chronometer) findViewById(R.id.timer);
         textView=(TextView) findViewById(R.id.tx);
-//        String message = getIntent().getStringExtra("MESSAGE");
-//        title=message.substring(0,message.indexOf("#"));
-//        planTimeFromMainActivity = Integer.parseInt(message.substring(message.indexOf("#")+1,message.indexOf("_")));
-//        currntTimeFromMainActivity = Integer.parseInt(message.substring(message.indexOf("_")+1));
+
         title = thisItem.getName();
         planTimeFromMainActivity = thisItem.getPlanTime();
         currntTimeFromMainActivity = thisItem.getActuTime();
@@ -87,7 +86,8 @@ public class TimeRecordActivity extends Activity {
 
         if (!startButnPressed) {
             startButnPressed=true;
-            start_butn.setText("Stop");
+            Toast.makeText(getApplicationContext(), "开始任务", Toast.LENGTH_SHORT).show();
+            start_butn.setText("进行中");
             oa =ObjectAnimator.ofFloat(start_butn,"Alpha",1.0f,0.25f,1.0f);
             oa.setDuration(5000);//ms
             oa.setRepeatCount(-1);
@@ -98,14 +98,14 @@ public class TimeRecordActivity extends Activity {
                 current=currntTimeFromMainActivity*60;
                 firstBegin=false;
             }
-            else if(!comfirm){
-                comfirm = true;
-                Toast.makeText(this,"再次点击学习时间将清零",Toast.LENGTH_LONG).show();
-            }
-            else if(comfirm){
-                comfirm = false;
-                current = -2;
-            }
+//            else if(!comfirm){
+//                comfirm = true;
+//                Toast.makeText(this,"再次点击学习时间将清零",Toast.LENGTH_LONG).show();
+//            }
+//            else if(comfirm){
+//                comfirm = false;
+//                current = -2;
+//            }
             chronometer.setBase(SystemClock.elapsedRealtime());
             chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
                 @Override
@@ -122,28 +122,45 @@ public class TimeRecordActivity extends Activity {
 //             onStartButnPress = 0;
         }
         else{
-            start_butn.setText("Start");
+            Toast.makeText(getApplicationContext(), "已暂停", Toast.LENGTH_SHORT).show();
+            start_butn.setText("暂停中");
             start_butn.clearAnimation();
             oa.end();
             chronometer.stop();
             startButnPressed=false;
-            Intent intent =getIntent();
-            //这里使用bundle绷带来传输数据
-            Bundle bundle = new Bundle();
-            if(current < planTimeFromMainActivity*60) {
-                timeSendToMainActivity = FormatHMS(current);
-                //传输的内容仍然是键值对的形式
-                bundle.putString("second",timeSendToMainActivity);//回发的消息
-                intent.putExtras(bundle);
-                setResult(RESULT_OK,intent);
-            }
-            else{
-                timeSendToMainActivity = "planSuccess";
-                bundle.putString("second",timeSendToMainActivity);//回发的消息
-                intent.putExtras(bundle);
-                setResult(RESULT_OK,intent);
-            }
+
         }
+        SensorManager sm = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
+        sm.registerListener(new SensorEventListener() {
+
+            public void onSensorChanged(SensorEvent event) {
+                if (Sensor.TYPE_ACCELEROMETER != event.sensor.getType()) {
+                    return;
+                }
+
+                float[] values = event.values;
+                float ax = values[0];
+                float ay = values[1];
+                float az = values[2];
+
+                if(az >= 0) {
+                    // 取消反面朝上
+                    if (startButnPressed) {
+                        onClickStartButn(findViewById(R.id.start_button));
+                    }
+                }
+                if(Math.abs(ax) < 0.5 && Math.abs(ay) < 0.5 && az < -9) {
+                    // 反面朝上
+                    if (!startButnPressed) {
+                        onClickStartButn(findViewById(R.id.start_button));
+                    }
+                }
+            }
+
+            public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+            }
+        }, sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
@@ -155,18 +172,12 @@ public class TimeRecordActivity extends Activity {
         thisItem.save();
     }
 
-    public static String FormatHMS(int time){
-        String hh=time / 3600 > 9 ? time / 3600 +"":"0"+time / 3600;
-        String mm=(time % 3600) /60 > 9 ? (time % 3600) / 60 +"":"0" + (time% 3600) / 60;
-        String ss=(time % 3600) % 60 > 9 ? (time % 3600) % 60 +"":"0" + (time% 3600) % 60;
-        return hh+":"+mm+":"+ss;
-    }
-
-    public static String FormatMM(int time){
-        String hh=time / 3600 > 9 ? time / 3600 +"":"0"+time / 3600;
-        String mm=(time % 3600) /60 > 9 ? (time % 3600) / 60 +"":"0" + (time% 3600) / 60;
-        return "";
-    }
+//    public static String FormatHMS(int time){
+//        String hh=time / 3600 > 9 ? time / 3600 +"":"0"+time / 3600;
+//        String mm=(time % 3600) /60 > 9 ? (time % 3600) / 60 +"":"0" + (time% 3600) / 60;
+//        String ss=(time % 3600) % 60 > 9 ? (time % 3600) % 60 +"":"0" + (time% 3600) % 60;
+//        return hh+":"+mm+":"+ss;
+//    }
 
 //
 //    public void onClickSettingButn(View view){
