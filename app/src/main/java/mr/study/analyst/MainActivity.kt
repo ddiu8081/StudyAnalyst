@@ -50,13 +50,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         btn_add.setOnClickListener {
-            val item = TodoItem()
-            item.name = "政治"
-            item.color = "#E47C5D"
-            item.planTime = 60
-            item.actuTime = 40
-            item.save()
-            todoList = LitePal.findAll(TodoItem::class.java)
+            val intent = Intent(act, TodoEditActivity::class.java)
+            startActivity(intent) //启动界面
         }
 
     }

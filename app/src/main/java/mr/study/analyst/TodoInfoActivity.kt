@@ -28,6 +28,7 @@ class TodoInfoActivity : AppCompatActivity() {
     private var timeToMainActivity = 0
     private var titleFromMainActivity = ""
     private var currntTimeFromMainActivity: Int = 0
+    private var id : Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +37,8 @@ class TodoInfoActivity : AppCompatActivity() {
         QMUIStatusBarHelper.translucent(this) //沉浸化状态栏
         QMUIStatusBarHelper.setStatusBarLightMode(act) //设置状态栏黑色字体图标
         view_statusBar.layoutParams.height = QMUIStatusBarHelper.getStatusbarHeight(this)
+
+        id = intent.getLongExtra("id",0)
 
         titleFromMainActivity = "English"
         planTimeFromMainActivity = 48
@@ -47,6 +50,7 @@ class TodoInfoActivity : AppCompatActivity() {
 
         btn_right.setOnClickListener {
             val intent = Intent(act, TodoEditActivity::class.java)
+            intent.putExtra("id",id)
             startActivity(intent) //启动界面
         }
 
@@ -92,14 +96,13 @@ class TodoInfoActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        val id = intent.getLongExtra("id",0)
-
         val todoItem = LitePal.find(TodoItem::class.java,id)
 
         textView_todoName.text = todoItem.name
         view_todoColor.setBackgroundColor(Color.parseColor(todoItem.color))
         textView_todoMeta.text = "已学习" + todoItem.actuTime.toString() + "分钟"
         textView_todoPlan.text = todoItem.planTime.toString()
+        textView_todoType.text = "计划"
 
         var progress:Int = todoItem.actuTime*100 / todoItem.planTime
         if (progress > 100) {
